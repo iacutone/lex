@@ -1,12 +1,9 @@
 defmodule Token do
   defstruct [:type, :lexeme, :literal, :line]
 
-  #   // Keywords.
-  #   AND, CLASS, ELSE, FALSE, FUN, FOR, IF, NIL, OR,
-  #   PRINT, RETURN, SUPER, THIS, TRUE, VAR, WHILE,
-
-  #   EOF
-  # }
+  @type literal :: String.t() | integer() | float() | nil
+  @type t ::
+          %__MODULE__{type: atom(), lexeme: String.t(), literal: literal(), line: pos_integer()}
 
   # Single-character tokens
   @left_paren :left_paren
@@ -56,10 +53,6 @@ defmodule Token do
   }
 
   @eof :eof
-
-  @type literal :: String.t() | integer() | float() | nil
-  @type t ::
-          %__MODULE__{type: atom(), lexeme: String.t(), literal: literal(), line: pos_integer()}
 
   @spec build(%{type: atom(), lexeme: String.t(), literal: literal(), line: pos_integer()}) ::
           Token.t()
@@ -157,6 +150,22 @@ defmodule Token do
   def keywords, do: @keywords
 
   def keyword(word), do: Map.get(keywords(), word)
+
+  def bang_equal, do: @bang_equal
+
+  def equal_equal, do: @equal_equal
+
+  def less_than, do: @less_than
+
+  def greater_than, do: @greater_than
+
+  def plus, do: @plus
+
+  def minus, do: @minus
+
+  def star, do: @star
+
+  def slash, do: @slash
 
   # def to_string(token) do
   #   to_string("#{token.type}" <> "#{token.lexeme}" <> "#{token.literal}")

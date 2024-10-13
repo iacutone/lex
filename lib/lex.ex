@@ -22,7 +22,10 @@ defmodule Lex do
 
   defp run_file(file) do
     {:ok, file} = File.read(file)
-    Lexer.run(file)
+
+    file
+    |> Lexer.run()
+    |> Parser.run()
   end
 
   defp run_prompt do
